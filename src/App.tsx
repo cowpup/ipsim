@@ -796,7 +796,7 @@ export default function MysteryPackSimulator() {
                   </button>
                 </div>
                 <div className="bg-orange-100 rounded p-3 text-sm text-orange-900">
-                  Maintains pyramid: low-value items = high probability, high-value items = low probability
+                  Maintains pyramid: low-value items = high probability, high-value items = low probability. Adjust target value and click Optimize again to re-run.
                 </div>
               </div>
             )}
@@ -851,9 +851,9 @@ export default function MysteryPackSimulator() {
                 </div>
                 <div className="bg-blue-100 rounded p-3 text-sm text-blue-900">
                   {optimizeMode && optimizeRevenue ? (
-                    <span>Combined optimization: Will balance both target EV and target net revenue %</span>
+                    <span>Combined optimization: Will balance both target EV and target net revenue %. Adjust targets and click Optimize again to re-run.</span>
                   ) : (
-                    <span>Maintains pyramid structure while optimizing for profit margin</span>
+                    <span>Maintains pyramid structure while optimizing for profit margin. Adjust target value and click Optimize again to re-run.</span>
                   )}
                 </div>
               </div>
