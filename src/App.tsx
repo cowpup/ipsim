@@ -175,13 +175,12 @@ export default function MysteryPackSimulator() {
 
   const loadSplashPreset = () => {
     setPriceRanges([
-      { id: 1, name: 'Range 1', min: 5, max: 14.99, avgValue: 8.5, probability: 0.4915, buybackRate: 0.85 },
-      { id: 2, name: 'Range 2', min: 15, max: 24.99, avgValue: 18, probability: 0.23, buybackRate: 0.82 },
-      { id: 3, name: 'Range 3', min: 25, max: 39.99, avgValue: 32.5, probability: 0.218, buybackRate: 0.8179 },
-      { id: 4, name: 'Range 4', min: 40, max: 74.99, avgValue: 57, probability: 0.0486, buybackRate: 0.7738 },
-      { id: 5, name: 'Range 5', min: 75, max: 99.99, avgValue: 82.5, probability: 0.0094, buybackRate: 0.6358 },
-      { id: 6, name: 'Range 6', min: 100, max: 199.99, avgValue: 125, probability: 0.002, buybackRate: 0.3478 },
-      { id: 7, name: 'Range 7', min: 200, max: 399.99, avgValue: 300, probability: 0.0005, buybackRate: 0 }
+      { id: 1, name: 'Range 1', min: 15, max: 24.99, avgValue: 18, probability: 0.72, buybackRate: 0.82 },
+      { id: 2, name: 'Range 2', min: 25, max: 39.99, avgValue: 32.5, probability: 0.218, buybackRate: 0.8179 },
+      { id: 3, name: 'Range 3', min: 40, max: 74.99, avgValue: 57, probability: 0.0486, buybackRate: 0.7738 },
+      { id: 4, name: 'Range 4', min: 75, max: 99.99, avgValue: 82.5, probability: 0.0094, buybackRate: 0.6358 },
+      { id: 5, name: 'Range 5', min: 100, max: 199.99, avgValue: 125, probability: 0.002, buybackRate: 0.3478 },
+      { id: 6, name: 'Range 6', min: 200, max: 399.99, avgValue: 300, probability: 0.002, buybackRate: 0 }
     ]);
     // Clear expanded ranges
     setExpandedRanges(new Set());
