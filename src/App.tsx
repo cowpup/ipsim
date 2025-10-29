@@ -234,6 +234,12 @@ export default function MysteryPackSimulator() {
 
   // Optimization function - Pyramid model: lowest value items = highest probability
   const optimizeProbabilities = () => {
+    // Check if at least one optimization mode is enabled
+    if (!optimizeMode && !optimizeRevenue) {
+      alert('Please enable at least one optimization mode (EV or Net Revenue %)');
+      return;
+    }
+
     const sortedRanges = [...priceRanges].sort((a, b) => a.avgValue - b.avgValue);
 
     let pyramidWeights = [1.0, 0.5, 0.25, 0.12, 0.06, 0.03];
@@ -286,6 +292,12 @@ export default function MysteryPackSimulator() {
       }
 
       if (score < 0.1) break;
+    }
+
+    // Check if we found valid probabilities
+    if (bestProbs.length === 0) {
+      alert('Could not find valid probability distribution. Try adjusting your parameters.');
+      return;
     }
 
     const newProbabilities: { [key: number]: number } = {};
