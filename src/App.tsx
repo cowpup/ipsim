@@ -252,7 +252,8 @@ export default function MysteryPackSimulator() {
     let bestProbs: number[] = [];
     let bestScore = Infinity;
 
-    for (let steepness = 0.1; steepness <= 10.0; steepness += 0.02) {
+    // Try broader range of steepness values for better coverage
+    for (let steepness = 0.05; steepness <= 20.0; steepness += 0.01) {
       const weights = pyramidWeights.map((w, idx) => w * Math.exp(-steepness * idx / sortedRanges.length));
       const totalWeight = weights.reduce((sum, w) => sum + w, 0);
       const probs = weights.map(w => w / totalWeight);
@@ -293,7 +294,8 @@ export default function MysteryPackSimulator() {
         bestProbs = [...probs];
       }
 
-      if (score < 0.1) break;
+      // Only break early if we're very close
+      if (score < 0.01) break;
     }
 
     // Check if we found valid probabilities
