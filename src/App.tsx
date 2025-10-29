@@ -92,14 +92,14 @@ export default function MysteryPackSimulator() {
     { id: 6, name: 'Range 6', min: 600, max: 4000, probability: 0.00956, buybackRate: 0, avgValue: 1732.65 }
   ]);
 
-  const updatePriceRange = (id: number, field: string, value: string) => {
+  const updatePriceRange = (id: number, field: string, value: string | number) => {
     setPriceRanges(priceRanges.map(r => {
       if (r.id === id) {
         // Handle string fields (like name) vs numeric fields
         if (field === 'name') {
           return { ...r, [field]: value };
         } else {
-          return { ...r, [field]: parseFloat(value) || 0 };
+          return { ...r, [field]: typeof value === 'number' ? value : parseFloat(value) || 0 };
         }
       }
       return r;
