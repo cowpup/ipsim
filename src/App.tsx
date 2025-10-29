@@ -252,7 +252,7 @@ export default function MysteryPackSimulator() {
     let bestProbs: number[] = [];
     let bestScore = Infinity;
 
-    for (let steepness = 0.1; steepness <= 5.0; steepness += 0.05) {
+    for (let steepness = 0.1; steepness <= 10.0; steepness += 0.02) {
       const weights = pyramidWeights.map((w, idx) => w * Math.exp(-steepness * idx / sortedRanges.length));
       const totalWeight = weights.reduce((sum, w) => sum + w, 0);
       const probs = weights.map(w => w / totalWeight);
@@ -271,11 +271,13 @@ export default function MysteryPackSimulator() {
 
       // Calculate EV difference if optimizing for EV
       if (optimizeMode) {
-        let avgItemValue = 0;
+        let avgCostBasis = 0;
         sortedRanges.forEach((range, idx) => {
-          avgItemValue += probs[idx] * range.avgValue;
+          avgCostBasis += probs[idx] * range.avgValue;
         });
-        const evDiff = Math.abs(avgItemValue - targetEV);
+        // Convert cost basis to market value for comparison with target
+        const avgMarketValue = avgCostBasis / (productCostPercent / 100);
+        const evDiff = Math.abs(avgMarketValue - targetEV);
         score += evDiff;
       }
 
