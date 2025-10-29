@@ -92,7 +92,7 @@ export default function MysteryPackSimulator() {
     { id: 6, name: 'Range 6', min: 600, max: 4000, probability: 0.00956, buybackRate: 0, avgValue: 1732.65 }
   ]);
 
-  const updatePriceRange = (id, field, value) => {
+  const updatePriceRange = (id: number, field: string, value: string) => {
     setPriceRanges(priceRanges.map(r => {
       if (r.id === id) {
         // Handle string fields (like name) vs numeric fields
@@ -202,7 +202,7 @@ export default function MysteryPackSimulator() {
     }
     pyramidWeights = pyramidWeights.slice(0, sortedRanges.length);
 
-    let bestProbs = [];
+    let bestProbs: number[] = [];
     let bestScore = Infinity;
 
     for (let steepness = 0.1; steepness <= 5.0; steepness += 0.05) {
@@ -247,7 +247,7 @@ export default function MysteryPackSimulator() {
       if (score < 0.1) break;
     }
 
-    const newProbabilities = {};
+    const newProbabilities: { [key: number]: number } = {};
     sortedRanges.forEach((range, idx) => {
       newProbabilities[range.id] = bestProbs[idx];
     });
@@ -480,7 +480,7 @@ export default function MysteryPackSimulator() {
     if (wsParams['B14']) wsParams['B14'].z = '$#,##0.00'; // Payment Processing Flat
 
     // Format Price Ranges sheet
-    priceRanges.forEach((range, idx) => {
+    priceRanges.forEach((_range, idx) => {
       const row = idx + 4;
       if (wsRanges[`B${row}`]) wsRanges[`B${row}`].z = '$#,##0.00'; // Min
       if (wsRanges[`C${row}`]) wsRanges[`C${row}`].z = '$#,##0.00'; // Max
@@ -949,7 +949,7 @@ export default function MysteryPackSimulator() {
           <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-6 mb-6">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Detailed Calculations by Range</h2>
             <div className="space-y-3">
-              {calculations.map((calc, idx) => {
+              {calculations.map((calc) => {
                 const isExpanded = expandedRanges.has(calc.id);
                 return (
                   <div key={calc.id} className="bg-white rounded-lg shadow-sm">
