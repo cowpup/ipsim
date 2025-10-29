@@ -97,9 +97,10 @@ export default function MysteryPackSimulator() {
       if (r.id === id) {
         // Handle string fields (like name) vs numeric fields
         if (field === 'name') {
-          return { ...r, [field]: value };
+          return { ...r, name: String(value) };
         } else {
-          return { ...r, [field]: typeof value === 'number' ? value : parseFloat(value) || 0 };
+          const numValue = typeof value === 'number' ? value : parseFloat(value) || 0;
+          return { ...r, [field]: numValue };
         }
       }
       return r;
