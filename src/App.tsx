@@ -147,6 +147,32 @@ export default function MysteryPackSimulator() {
     setExpandedRanges(newExpanded);
   };
 
+  const loadPSA10Preset = () => {
+    setPriceRanges([
+      { id: 1, name: 'Range 1', min: 40, max: 59.99, probability: 0.57, buybackRate: 0.8179, avgValue: 45.72 },
+      { id: 2, name: 'Range 2', min: 60, max: 89.99, probability: 0.26, buybackRate: 0.7738, avgValue: 65.59 },
+      { id: 3, name: 'Range 3', min: 90, max: 149.99, probability: 0.104, buybackRate: 0.6358, avgValue: 93.00 },
+      { id: 4, name: 'Range 4', min: 150, max: 299.99, probability: 0.03995, buybackRate: 0.3478, avgValue: 176.59 },
+      { id: 5, name: 'Range 5', min: 300, max: 599.99, probability: 0.01649, buybackRate: 0, avgValue: 306.25 },
+      { id: 6, name: 'Range 6', min: 600, max: 4000, probability: 0.00956, buybackRate: 0, avgValue: 1732.65 }
+    ]);
+    // Clear expanded ranges
+    setExpandedRanges(new Set());
+  };
+
+  const loadWavePreset = () => {
+    setPriceRanges([
+      { id: 1, name: 'Range 1', min: 25, max: 39.99, avgValue: 32.5, probability: 0.71022, buybackRate: 0.8179 },
+      { id: 2, name: 'Range 2', min: 40, max: 74.99, avgValue: 57, probability: 0.20660, buybackRate: 0.7738 },
+      { id: 3, name: 'Range 3', min: 75, max: 99.99, avgValue: 82.5, probability: 0.06010, buybackRate: 0.6358 },
+      { id: 4, name: 'Range 4', min: 100, max: 199.99, avgValue: 125, probability: 0.01678, buybackRate: 0.3478 },
+      { id: 5, name: 'Range 5', min: 200, max: 399.99, avgValue: 300, probability: 0.00488, buybackRate: 0 },
+      { id: 6, name: 'Range 6', min: 400, max: 800, avgValue: 600, probability: 0.00142, buybackRate: 0 }
+    ]);
+    // Clear expanded ranges
+    setExpandedRanges(new Set());
+  };
+
   // Helper function to calculate net revenue % for given probabilities
   const calculateNetRevenuePercent = (probs: number[], ranges: typeof priceRanges) => {
     let totalItemsKept = 0;
@@ -824,13 +850,29 @@ export default function MysteryPackSimulator() {
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-gray-700">Item Value Ranges & Buyback Rates</h2>
-              <button
-                onClick={addPriceRange}
-                className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition"
-              >
-                <Plus className="w-4 h-4" />
-                Add Range
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={loadPSA10Preset}
+                  className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
+                >
+                  <Package className="w-4 h-4" />
+                  PSA 10 Preset - Historical
+                </button>
+                <button
+                  onClick={loadWavePreset}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+                >
+                  <Package className="w-4 h-4" />
+                  Wave Preset
+                </button>
+                <button
+                  onClick={addPriceRange}
+                  className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Range
+                </button>
+              </div>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
