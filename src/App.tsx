@@ -373,8 +373,8 @@ export default function MysteryPackSimulator() {
         range.min,
         range.max,
         range.avgValue,
-        range.probability * 100,
-        range.buybackRate * 100
+        range.probability, // Store as decimal, Excel % format will display correctly
+        range.buybackRate  // Store as decimal, Excel % format will display correctly
       ])
     ];
     const wsRanges = XLSX.utils.aoa_to_sheet(rangesData);
@@ -383,7 +383,7 @@ export default function MysteryPackSimulator() {
     const calcData: any[][] = [
       ['DETAILED CALCULATIONS BY RANGE'],
       [''],
-      ['Range', 'Packs in Range', 'Items Kept', 'Cost for Kept Items', 'Items Bought Back', 'Buyback Value (Full)', 'Commission Earned'],
+      ['Range', 'Items from Range', 'Items Needed (Kept)', 'Cost for Items Needed', 'Items Bought Back', 'Buyback Value (Full)', 'Commission Earned'],
     ];
 
     priceRanges.forEach((range, idx) => {
@@ -392,17 +392,17 @@ export default function MysteryPackSimulator() {
 
       calcData.push([
         range.name,
-        // Packs in Range = numPacks * (probability% / 100)
-        { f: `Parameters!$B$4*('Price Ranges'!$E$${rangeRow}/100)` },
-        // Items Kept = Packs in Range * (1 - buybackRate% / 100)
-        { f: `B${calcRow}*(1-'Price Ranges'!$F$${rangeRow}/100)` },
-        // Cost for Kept Items = Items Kept * avgValue (avgValue is already cost basis)
+        // Items from Range = numPacks * probability (as decimal)
+        { f: `Parameters!$B$4*'Price Ranges'!$E$${rangeRow}` },
+        // Items Needed (Kept) = Items from Range * (1 - buybackRate as decimal)
+        { f: `B${calcRow}*(1-'Price Ranges'!$F$${rangeRow})` },
+        // Cost for Items Needed = Items Needed * avgValue (avgValue is already cost basis)
         { f: `C${calcRow}*'Price Ranges'!$D$${rangeRow}` },
-        // Items Bought Back = Packs in Range * (buybackRate% / 100)
-        { f: `B${calcRow}*('Price Ranges'!$F$${rangeRow}/100)` },
-        // Buyback Value (Full) = Items Bought Back * avgValue * buybackPercent (B7 has decimal value now)
+        // Items Bought Back = Items from Range * buybackRate (as decimal)
+        { f: `B${calcRow}*'Price Ranges'!$F$${rangeRow}` },
+        // Buyback Value (Full) = Items Bought Back * avgValue * buybackPercent (B7 has decimal value)
         { f: `E${calcRow}*'Price Ranges'!$D$${rangeRow}*Parameters!$B$7` },
-        // Commission Earned = Buyback Value * commission (B8 has decimal value now)
+        // Commission Earned = Buyback Value * commission (B8 has decimal value)
         { f: `F${calcRow}*Parameters!$B$8` }
       ]);
     });
@@ -517,7 +517,7 @@ export default function MysteryPackSimulator() {
     const rangesColWidths = [{ wch: 15 }, { wch: 10 }, { wch: 10 }, { wch: 18 }, { wch: 15 }, { wch: 15 }];
     wsRanges['!cols'] = rangesColWidths;
 
-    const calcColWidths = [{ wch: 15 }, { wch: 15 }, { wch: 12 }, { wch: 18 }, { wch: 18 }, { wch: 20 }, { wch: 18 }];
+    const calcColWidths = [{ wch: 15 }, { wch: 18 }, { wch: 22 }, { wch: 22 }, { wch: 18 }, { wch: 22 }, { wch: 18 }];
     wsCalc['!cols'] = calcColWidths;
 
     // Generate and download
