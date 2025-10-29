@@ -1,0 +1,21 @@
+# Image files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.svg
+
+# Excel files
+*.xlsx
+*.xls
+*.xlsm
+
+# Other common exclusions
+node_modules/
+.DS_Store
+*.log
+.env
+.env.local
+dist/
+build/
